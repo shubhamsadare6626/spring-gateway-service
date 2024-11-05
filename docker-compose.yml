@@ -1,0 +1,7 @@
+version: '3'
+services:
+  spring-gateway-service:
+    container_name: spring-gateway-service
+    image: personal/spring-gateway-service
+    ports:
+      - 9999:9999

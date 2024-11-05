@@ -1,0 +1,53 @@
+server:
+  port: 9999
+  error:
+    whitelabel:
+      enabled: false
+spring:
+  application:
+    name: spring-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: job_service
+          uri: ${JOB_SERVICE:http://localhost:8081}
+          predicates:
+            - Path=/job/**
+          filters:
+            - RewritePath=/job(?<segment>/?.*), /rest/api/$\{segment}
+management:
+  server:
+    port: 9101
+  endpoint:
+    info:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include:
+          - auditevents
+          - beans
+          - caches
+          - conditions
+          - configprops
+          - env
+          - flyway
+          - health
+          - heapdump
+          - httptrace
+          - info
+          - integrationgraph
+          - jolokia
+          - logfile
+          - loggers
+          - liquibase
+          - metrics
+          - mappings
+          - prometheus
+          - scheduledtasks
+          - sessions
+          - shutdown
+          - threaddump
